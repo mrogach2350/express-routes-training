@@ -29,6 +29,26 @@ app.get('/', function (request, response){
 
 
 // The Number Guessing Game
+var targetNumber = '7';
+
+app.get('/pick-a-number', function(request, response){
+  var num = request.query.number;
+  if (num === targetNumber){
+    response.send('Nailed it!');
+  }else if (num > targetNumber){
+    response.send('Too High!');
+  }else if (num < targetNumber){
+    response.send('Too Low!');
+  } else {
+    console.log('Something odd happened! num: ', num);
+    response.send('Your guess is beyond compare!');
+  }
+});
+
+app.post('/pick-a-number', function(request, response){
+  targetNumber = request.body.number;
+  response.status(200).send('Number updated successfully!');
+});
 
 
 // Gallery
